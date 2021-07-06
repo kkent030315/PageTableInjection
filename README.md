@@ -17,7 +17,7 @@ Code Injection, Inject malicious payload via pagetables pml4.
 This is just a proof-of-concept of the page table injection technique to inject malicious code into the arbitrary user processes.  
 On Windows(and some modern OSes), every process has a its PML4 a.k.a *Directory Table Base*. Thus the process *A* cannot access process *B* without APIs. but how about if we can inject arbitrary PML4 entry? of course the PML4 entry will points to the corresponding physical address of entries, `PDP`, `PD` and `PT` as exact same as the backing process.  
 
-In order to inject malicious PML4 entry to the target process, we need to have an *actual* resident page (physical memory) that backing the malicious PML4 entry. Thus literally the resident page must be a resident, otherwise the system will crash or would became unstable, because after the MMU translates to the physical address, there is nothing that MMU expects.
+In order to inject malicious PML4 entry to the target process, we need to have an *actual* resident page (physical memory) that backing the malicious PML4 entry. Thus literally the resident page must be a resident, otherwise the system will crash or would become unstable, because after the MMU translates to the physical address, there is nothing that MMU expects.
 
 Let's look at the both backing process and target process buffers. In this case, the buffers are:
 
