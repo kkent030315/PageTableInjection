@@ -60,8 +60,18 @@ Amd64VtoP: Mapped phys 0000000014306000
 Virtual address 1a45f810000 translates to physical address 14306000.
 ```
 
-Both of addresses are corresponding to the exact same page table entries, `PDP`, `PD`, `PT` and an physical address. Therefore if we modified backing process's buffer, the change also on the target process. This is very similar to the shared-memory on the Windows, but the diffence is that memory region on the target process will never be shown in any VAD entries of its process. but in other hand, if the backing process's buffer is freed, it means also on the target process but without touching target process's page table entries, which means that the memory manager will cause a bugcheck `MEMORY_MANAGEMENT`, or worse triple fault.
+Both of addresses are corresponding to the exact same page table entries, `PDP`, `PD`, `PT` and an physical address. Therefore if we modified backing process's buffer, the change also on the target process. This is very similar to the shared-memory on the Windows, but the diffence is that memory region on the target process will never be shown in any VAD entries of its process. but in other hand, if the backing process's buffer is freed, it means also on the target process but without touching target process's page table entries, which means that the memory manager will cause a bugcheck `MEMORY_MANAGEMENT`, or will trigger worse triple fault on the CPU.
 
 <p align="center">
 <img src="diagram.png">
 </p>
+
+## The problem
+
+This technique has massive stability problems as I said that the injected malicious PML4 entry does not involved to the windows memory manager nor kernels. and there is no guarantee that the backing process will be alive until the target process is terminated, or target process have nothing to do with clean-up the malicious PML4 entry when the backing process is terminating.
+
+# License
+
+MIT copyright Kento Oki \<hrn832@protonmail.com\>
+
+The source codes may contain external contents, such contents belong to its copyright holder.
