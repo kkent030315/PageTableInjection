@@ -24,7 +24,7 @@ Let's look at the both backing process and target process buffers. In this case,
 - Backing Process VA: `0x1A45F810000`
 - Deployment Process Injected VA: `0x6EA45F810000`
 
-Before step to the next, some of you may think that the 2nd address(`0x6EA45F810000`) looks weird, like usually we allocated buffer via `malloc` or `VirtualAlloc`, the virtual address should look like `0x17C7CAC0000` `0x23BE9D80000` `0x19FE76F0000`. it's because the PML4 entry is not involved to the memory manager of windows, and is not managed aswell. of course every virtual address on Windows 64-bit process could possibly have *any* value within a range of user memory range.
+Before step to the next, some of you may think that the 2nd address(`0x6EA45F810000`) looks weird, like usually we allocated buffer via `malloc` or `VirtualAlloc`, the virtual address should look like `0x17C7CAC0000` `0x23BE9D80000` `0x19FE76F0000` or some sort of these. it's because the PML4 entry is not involved to the memory manager of windows, and is not managed aswell. of course every virtual address on Windows 64-bit process could possibly have *any* value within a range of user memory range.
 
 So if we look into the both address...
 
