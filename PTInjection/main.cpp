@@ -173,7 +173,7 @@ bool perform_inject(std::wstring dll_full_path, u32 target_process_id, u32 backi
     //    
     //    Note that if this buffer is freed and the target
     //    process try to access memory region we deployed,
-    //    it would cause MEMORY_MANAGEMENT bugcheck because.
+    //    it would cause MEMORY_MANAGEMENT bugcheck or critical system crash.
     //
     PVOID remote_image_base = VirtualAllocEx(
         backing_process_handle,
@@ -274,10 +274,10 @@ int wmain(int argc, const wchar_t** argv, const wchar_t** envp)
 
     if (!perform_inject(dll_full_path, target_process_id, backing_process_id))
     {
-        print_bad("Failed to perform inject\n"); std::cin.ignore();
+        print_bad("Failed to perform inject\n");
         return EXIT_FAILURE;
     }
 
-    print_info("Done\n"); std::cin.ignore();
+    print_info("Done\n");
     return EXIT_SUCCESS;
 }
